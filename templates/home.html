@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MHTScore CollegeMatch</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2e8bff, #00c6ff);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    header {
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 1.2px;
+      cursor: default;
+      user-select: none;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffe600;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    main p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      max-width: 700px;
+      color: #e0e7ffcc;
+    }
+
+    .btn-primary {
+      background-color: #ffe600;
+      color: #222;
+      font-weight: 700;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px #ffd700aa;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #ffd500;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: rgba(0,0,0,0.2);
+      padding: 15px 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ddd;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      main h2 {
+        font-size: 2.2rem;
+      }
+      main p {
+        font-size: 1rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 10px;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MHTScore CollegeMatch</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="/form">Predict</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Predict Your College Admission with Confidence</h2>
+    <p>
+      MHTScore CollegeMatch uses cutting-edge Machine Learning models to predict the best colleges you can get admission to based on your MHT-CET score. 
+      Plan your future smartly with data-backed insights and make the best choices for your education.
+    </p>
+    <button class="btn-primary" onclick="location.href='/form'">Start Predicting</button>
+  </main>
+
+  <footer id="contact">
+    &copy; 2025 MHTScore CollegeMatch | Developed by Moin Chavhan
+  </footer>
+</body>
+</html>

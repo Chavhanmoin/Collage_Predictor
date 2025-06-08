@@ -1,0 +1,182 @@
+/* Reset and base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e2e8f0, #f0f4f8);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 700px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 48px 40px;
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1f2937; /* Darker gray */
+}
+
+/* Input group */
+.input-group {
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4b5563; /* Medium gray */
+}
+
+/* Inputs and Select */
+input[type="number"],
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #d1d5db; /* Light gray border */
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  font-weight: 500;
+  color: #111827;
+}
+
+input[type="number"]::placeholder,
+select::placeholder {
+  color: #9ca3af; /* Placeholder gray */
+}
+
+input[type="number"]:focus,
+select:focus {
+  border-color: #3b82f6; /* Brighter blue */
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
+}
+
+/* Buttons */
+button {
+  background-color: #3b82f6; /* Blue 500 */
+  color: #fff;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+button:hover,
+button:focus {
+  background-color: #2563eb; /* Blue 600 */
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+  outline: none;
+}
+
+button:active {
+  background-color: #1d4ed8; /* Blue 700 */
+}
+
+/* Predicted results box */
+#predictedResults {
+  margin-top: 28px;
+  padding: 20px 25px;
+  background-color: #f3f4f6; /* Very light gray */
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  color: #111827;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#predictedResults:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+#predictedResults h3 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+#predictedPrice,
+#otherPredictions {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* Logout button */
+.logout-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 12px 24px;
+  background-color: #ef4444; /* Red 500 */
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  z-index: 1000;
+}
+
+.logout-button:hover,
+.logout-button:focus {
+  background-color: #b91c1c; /* Red 700 */
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.6);
+  outline: none;
+}
+
+.logout-button:active {
+  background-color: #7f1d1d; /* Red 800 */
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .container {
+    padding: 32px 24px;
+  }
+  
+  button,
+  input[type="number"],
+  select {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}

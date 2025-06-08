@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>College Prediction Form</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  :root {
+    --primary-color: #4a67f8;
+    --accent-color: #ff7f50;
+    --bg-color: #f7f8fc;
+    --text-color: #333;
+    --input-border: #ccc;
+    --input-focus: var(--primary-color);
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    background: white;
+    max-width: 480px;
+    width: 100%;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(74,103,248,0.15);
+  }
+
+  h2 {
+    margin-top: 0;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+  }
+
+  input[type="number"],
+  select {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1.5px solid var(--input-border);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="number"]:focus,
+  select:focus {
+    border-color: var(--input-focus);
+    outline: none;
+  }
+
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.85rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(74,103,248,0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button:hover,
+  button:focus {
+    background-color: #3b52d1;
+    box-shadow: 0 6px 15px rgba(74,103,248,0.5);
+    outline: none;
+  }
+
+  #predictedResults {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  #predictedResults ol {
+    padding-left: 1.3rem;
+  }
+
+  /* Logout button */
+  .logout-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    float: right;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .logout-button:hover {
+    background-color: #e36c43;
+  }
+
+  @media (max-width: 500px) {
+    .container {
+      padding: 1.5rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main">
+    <h2>College Prediction Form</h2>
+
+    <!-- Show logout button if user logged in -->
+    {% if 'username' in session %}
+      <button class="logout-button" onclick="location.href='/logout'" aria-label="Logout">Logout</button>
+    {% endif %}
+
+    <form id="predictionForm" method="post" aria-label="College Prediction Form">
+      <label for="min_rank">Your MHT-CET Rank:</label>
+      <input type="number" id="min_rank" name="min_rank" required min="1" aria-required="true" />
+
+      <label for="min_score">Your MHT-CET Merit Score:</label>
+      <input type="number" id="min_score" name="min_score" step="0.01" required min="0" aria-required="true" />
+
+      <label for="seat_type">Category for Admission:</label>
+      <select id="seat_type" name="seat_type" required aria-required="true">
+        {% for st in seat_type %}
+          <option value="{{ st }}">{{ st }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="branch">Your Preferred Branch:</label>
+      <select id="branch" name="branch" required aria-required="true">
+        {% for br in branch %}
+          <option value="{{ br }}">{{ br }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="button" onclick="send_data()" aria-label="Submit prediction form">Predict</button>
+    </form>
+
+    <section id="predictedResults" aria-live="polite" aria-atomic="true" tabindex="0">
+      <h3>Predicted Colleges</h3>
+      <div id="predictedPrice" aria-live="polite"></div>
+    </section>
+  </div>
+
+<script>
+  function send_data() {
+    const form = document.getElementById('predictionForm');
+    const fd = new FormData(form);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/predict', true);
+
+    const resultDiv = document.getElementById("predictedPrice");
+    resultDiv.innerHTML = '<em>Loading predictions, please wait...</em>';
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          try {
+            const colleges = JSON.parse(xhr.responseText);
+            if (colleges.length === 0) {
+              resultDiv.innerHTML = "<p>No matches found based on your inputs.</p>";
+              return;
+            }
+            let resultHTML = "<ol>";
+            colleges.forEach(college => {
+              resultHTML += `<li>${college}</li>`;
+            });
+            resultHTML += "</ol><p>Hope this information helps you choose the right college!</p>";
+            resultDiv.innerHTML = resultHTML;
+          } catch (err) {
+            resultDiv.innerHTML = "Unexpected response from server.";
+          }
+        } else {
+          resultDiv.innerHTML = "Error during prediction: " + xhr.responseText;
+        }
+      }
+    };
+
+    xhr.send(fd);
+  }
+</script>
+</body>
+</html>
